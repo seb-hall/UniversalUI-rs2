@@ -8,3 +8,8 @@ pub struct uPoint {
     pub x: c_float,
     pub y: c_float
 }
+
+pub struct uSize {
+    pub width: c_float,
+    pub height: c_float
+}

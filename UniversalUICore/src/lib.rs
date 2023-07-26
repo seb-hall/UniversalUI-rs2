@@ -1,8 +1,14 @@
 #![allow(non_snake_case)]
 #![allow(improper_ctypes_definitions)]
 
+pub extern crate libc;
+pub extern crate raw_window_handle;
+
+
 pub mod debug;
 pub mod base;
+pub mod window;
+
 
 use debug::*;
 use base::*;

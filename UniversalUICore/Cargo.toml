@@ -9,6 +9,8 @@ description = "core library for universalui"
 [dependencies]
 libc = "0.2.147"
 colored = "2.0.0"
+winit = "0.28.6"
+raw-window-handle = "0.5.2"
 
 [lib]
 crate-type = ["cdylib"]
