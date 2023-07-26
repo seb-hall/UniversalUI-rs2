@@ -2,6 +2,7 @@
 #include "core/base.h"
 #include "core/debug.h"
 #include "core/window.h"
+#include "core/run.h"
 
 #include <stdio.h>
 
@@ -9,27 +10,22 @@ int main() {
 
     debug_info("Starting test application!");
 
-    uPoint myPoint;
-        myPoint.x = 10.0;
-        myPoint.y = 50.0;
-
-
-        uPoint recievedPoint = check_point(myPoint);
-
-        printf("I got x: %f y: %f\n", recievedPoint.x, recievedPoint.y);
+    core_init();
     
     uWindowInfo myWindowInfo;
     myWindowInfo.title = "Hello window 1";
     myWindowInfo.size = { 800.0, 600.0 };
 
-    uWindowHandle myWindowHandle = create_window(myWindowInfo);
+    uWindowInfo myWindowInfo2;
+    myWindowInfo2.title = "Hello window 2";
+    myWindowInfo2.size = { 800.0, 600.0 };
 
-    if (core_init()) {
-        debug_info("Initialised OK!");
-        return 0;
-    } else {
-        debug_critical("Initialisation Error!");
-        return -1;
-    }
+    uWindowHandle myWindowHandle1 = create_window(myWindowInfo);
+
+    uWindowHandle myWindowHandle2 = create_window(myWindowInfo2);
+
+    printf("got to here ok");
+    run();
+
 
 }

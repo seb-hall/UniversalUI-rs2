@@ -1,9 +1,11 @@
 extern "C" {
 
+    //  define structs
+    struct uPoint; 
+
     //  initialise core
     bool core_init();
 
-    struct uPoint; 
     uPoint check_point(uPoint point);
 
 }
