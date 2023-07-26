@@ -1,0 +1,10 @@
+[package]
+name = "UniversalUI-Native-rs"
+version = "0.1.0"
+authors = ["Seb Hall <sebhalldesigns@gmail.com>"]
+description = "UniversalUI Native Rust Module"
+
+[dependencies]
+
+[lib]
+crate-type = ["cdylib"]
