@@ -13,7 +13,7 @@ pub use crate::winit::{
 
 
 extern "C" {
-    pub fn run_call_c();
+    //pub fn run_call_c();
 }
 
 #[no_mangle]
@@ -54,7 +54,7 @@ pub unsafe extern "C" fn run() -> bool {
         // Handle the case when the EventLoop is not initialized.
     }
 
-    run_call_c();
+    //run_call_c();
 
     return true;
 }
