@@ -10,6 +10,8 @@ use crate::raw_window_handle::*;
 use crate::pollster::*;
 use std::collections::HashMap;
 use std::iter::once;
+use std::time::{Duration, Instant};
+
 
 pub struct uGraphicsWindow {
     raw_window: winit::window::Window,
@@ -109,7 +111,7 @@ pub unsafe fn setup_for_window(handle: uWindowHandle, raw_window: winit::window:
         format: surface_format,
         width: size.width as u32,
         height: size.height as u32,
-        present_mode: surface_caps.present_modes[0],
+        present_mode: wgpu::PresentMode::Immediate,//surface_caps.present_modes[0],
         alpha_mode: surface_caps.alpha_modes[0],
         view_formats: vec![],
     };
@@ -185,7 +187,7 @@ pub unsafe fn setup_for_window(handle: uWindowHandle, raw_window: winit::window:
         }
     }
 
-    render_window(handle);
+    render_window(handle, uSize {width: size.width, height: size.height});
     
     return true;
 }
@@ -193,9 +195,10 @@ pub unsafe fn setup_for_window(handle: uWindowHandle, raw_window: winit::window:
 //  configure window surface e.g if resized
 pub unsafe fn configure_window_surface(handle: uWindowHandle, size: uSize) {
 
+
     unsafe {
         if let Some(ref mut safe_graphics_windows) = graphics_windows { 
-            let window_stuff = safe_graphics_windows.get(&handle).unwrap();
+            let mut window_stuff = safe_graphics_windows.get_mut(&handle).unwrap();
             
             let surface_caps = window_stuff.surface.get_capabilities(&window_stuff.adapter);
             // Shader code in this tutorial assumes an sRGB surface texture. Using a different
@@ -210,12 +213,15 @@ pub unsafe fn configure_window_surface(handle: uWindowHandle, size: uSize) {
                 format: surface_format,
                 width: size.width as u32,
                 height: size.height as u32,
-                present_mode: surface_caps.present_modes[0],
+                present_mode: wgpu::PresentMode::Immediate,//surface_caps.present_modes[0],
                 alpha_mode: surface_caps.alpha_modes[0],
                 view_formats: vec![],
             };
-            window_stuff.surface.configure(&window_stuff.device, &config);
 
+          
+            window_stuff.surface.configure(&window_stuff.device, &config);
+    
+            window_stuff.size = uSize {width: size.width, height: size.height};
         } else {
             internal_debug_error("failed to unwrap graphics_windows map");
         }
@@ -225,11 +231,18 @@ pub unsafe fn configure_window_surface(handle: uWindowHandle, size: uSize) {
 
 
 //  render window surface
-pub unsafe fn render_window(handle: uWindowHandle) {
+pub unsafe fn render_window(handle: uWindowHandle, size: uSize) {
+
+    let now = Instant::now();
+    let mut duration: Duration = now.elapsed();
 
     unsafe {
         if let Some(ref mut safe_graphics_windows) = graphics_windows { 
             let window_stuff = safe_graphics_windows.get(&handle).unwrap();
+            if window_stuff.size.width != size.width || window_stuff.size.height != size.height {
+                println!("SIZE DIFFERENT!");
+                configure_window_surface(handle, uSize {width: size.width, height: size.height});
+            }
             let output = window_stuff.surface.get_current_texture().unwrap();
             let view = output
                 .texture
@@ -261,9 +274,15 @@ pub unsafe fn render_window(handle: uWindowHandle) {
     
                 render_pass.set_pipeline(&window_stuff.render_pipeline);
             }
+
+            duration = now.elapsed();
+            internal_debug_info(&format!("{} us before", duration.as_micros()));
     
             window_stuff.queue.submit(once(encoder.finish()));
             output.present();
+
+            duration = now.elapsed();
+            internal_debug_info(&format!("{} us after", duration.as_micros()));
 
         } else {
             internal_debug_error("failed to unwrap graphics_windows map");
