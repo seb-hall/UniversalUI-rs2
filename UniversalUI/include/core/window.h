@@ -13,7 +13,7 @@ struct uWindowInfo {
 };
 
 struct uWindowHandle {
-    uint64_t raw_handle;
+    uint64_t handle;
 };
 
 extern "C" {

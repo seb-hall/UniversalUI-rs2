@@ -9,12 +9,12 @@
 //
 //  debug/mod.rs defines functions for debugging.
 
-extern crate colored;
 
-use super::libc::c_char;
+
+use crate::libc::c_char;
 use std::ffi::CStr;
 
-use debug::colored::Colorize;
+use crate::colored::Colorize;
 
 //  information only, no issues
 #[no_mangle]

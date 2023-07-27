@@ -13,6 +13,4 @@ pub struct uWindowInfo {
     pub size: uSize,
 }
 
-pub struct uWindowHandle {
-    pub raw_handle: u64,
-}
+pub type uWindowHandle = u64;

@@ -3,6 +3,7 @@ name = "UniversalUICore"
 version = "0.1.0"
 authors = ["Seb Hall <sebhalldesigns@gmail.com>"]
 description = "core library for universalui"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -12,6 +13,8 @@ colored = "2.0.0"
 winit = "0.28.6"
 raw-window-handle = "0.5.2"
 lazy_static = "1.4.0"
+wgpu = "0.17.0"
+pollster = "0.3.0"
 
 [lib]
 crate-type = ["cdylib"]
