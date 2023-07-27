@@ -14,11 +14,11 @@ int main() {
     
     uWindowInfo myWindowInfo;
     myWindowInfo.title = "Hello window 1";
-    myWindowInfo.size = { 800.0, 600.0 };
+    myWindowInfo.size = { 2560.0, 1440.0 };
 
     uWindowInfo myWindowInfo2;
     myWindowInfo2.title = "Hello window 2";
-    myWindowInfo2.size = { 800.0, 600.0 };
+    myWindowInfo2.size = { 2560.0, 1440.0 };
 
     uWindowHandle myWindowHandle1 = create_window(myWindowInfo);
 
