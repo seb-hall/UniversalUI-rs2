@@ -20,6 +20,9 @@ int main() {
     myWindowInfo2.title = "Hello window 2";
     myWindowInfo2.size = { 2560.0, 1440.0 };
 
+    for (int i = 0; i < 250; i++ ) {
+        create_window(myWindowInfo);
+    }
     uWindowHandle myWindowHandle1 = create_window(myWindowInfo);
 
     uWindowHandle myWindowHandle2 = create_window(myWindowInfo2);
