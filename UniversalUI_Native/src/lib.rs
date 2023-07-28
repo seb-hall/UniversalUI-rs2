@@ -8,12 +8,14 @@
 //  lib.rs declares the crate submodules and init function.
 
 extern crate UniversalUI_Base;
+extern crate libc;
 
 use UniversalUI_Base::debug::*;
 
 #[cfg_attr(windows, path = "win32/init.rs")]
 mod init;
 
+pub mod window;
 
 #[no_mangle]
 pub extern "C" fn native_init() -> bool { 
