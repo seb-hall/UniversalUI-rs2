@@ -16,6 +16,7 @@ use UniversalUI_Base::debug::*;
 mod init;
 
 pub mod window;
+pub mod event;
 
 #[no_mangle]
 pub extern "C" fn native_init() -> bool { 

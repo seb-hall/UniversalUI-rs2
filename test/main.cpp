@@ -1,5 +1,6 @@
 #include "core/native/lib.h"
 #include "core/native/window.h"
+#include "core/native/event.h"
 #include "core/base/general.h"
 #include "core/base/geometry.h"
 
@@ -14,8 +15,15 @@ int main() {
     }
 
     uID window1 = create_window("window 1", uSize { 800.0, 600.0 });
+    uID window2 = create_window("window 2", uSize { 800.0, 600.0 });
+    uID window3 = create_window("window 3", uSize { 800.0, 600.0 });
+
     set_window_visibility(window1, false);
-    destroy_window(window1);
+    //destroy_window(window1);
+
+    while (true) {
+        get_events();
+    }
 
     return 0;
 }

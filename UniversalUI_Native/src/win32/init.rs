@@ -12,8 +12,12 @@ use crate::UniversalUI_Base::debug::*;
 
 use windows::{core::*, s};
 use windows::Win32::Foundation::*;
-use windows::Win32::System::LibraryLoader::GetModuleHandleA;
+use windows::Win32::System::LibraryLoader::GetModuleHandleW;
 use windows::Win32::UI::WindowsAndMessaging::*;
+
+pub fn wide_null(s: &str) -> Vec<u16> {
+    s.encode_utf16().chain(Some(0)).collect()
+}
 
 
 pub fn init() -> bool {
@@ -22,19 +26,19 @@ pub fn init() -> bool {
 
     fn get_instance() -> Result<HMODULE> {
         unsafe {
-            let instance = GetModuleHandleA(None)?;
+            let instance = GetModuleHandleW(None)?;
             return Ok(instance);
         }
     }
 
-    fn create_class(instance: HMODULE) -> Result<WNDCLASSA> {
+    fn create_class(instance: HMODULE) -> Result<WNDCLASSW> {
         unsafe {
-            let window_class = s!("window");
+            let window_class = wide_null("window");
             
-            let wc = WNDCLASSA {
+            let wc = WNDCLASSW {
                 hCursor: LoadCursorW(None, IDC_ARROW)?,
                 hInstance: instance,
-                lpszClassName: window_class,
+                lpszClassName: PCWSTR(window_class.as_ptr()),
                 style: CS_HREDRAW | CS_VREDRAW | CS_OWNDC,
                 lpfnWndProc: Some(wndproc),
                 ..Default::default()
@@ -44,9 +48,9 @@ pub fn init() -> bool {
         }
     }
 
-    fn register_class(wc: WNDCLASSA) -> Result<bool> {
+    fn register_class(wc: WNDCLASSW) -> Result<bool> {
         unsafe {
-            let atom = RegisterClassA(&wc);
+            let atom = RegisterClassW(&wc);
             if atom == 0 {
                 return Ok(false);
             }
@@ -93,7 +97,7 @@ pub fn init() -> bool {
 
 unsafe extern "system" fn wndproc(window: HWND, message: u32, wparam: WPARAM, lparam: LPARAM) -> LRESULT { 
 
-    println!("an event occured!");
+    debug_info("an event occured!");
     
-    return DefWindowProcA(window, message, wparam, lparam);
+    return DefWindowProcW(window, message, wparam, lparam);
 }

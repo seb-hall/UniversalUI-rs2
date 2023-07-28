@@ -13,12 +13,16 @@ use crate::UniversalUI_Base::geometry::*;
 
 use crate::libc::*;
 
+
+#[cfg_attr(windows, path = "win32/window.rs")]
+mod native_window;
+
 #[no_mangle]
 pub extern "C" fn create_window(title: *const c_char, size: uSize) -> uID { 
 
     debug_info("Creating a new Window");
     
-    return 0;
+    return native_window::create_window(title, size);
 }
 
 #[no_mangle]
