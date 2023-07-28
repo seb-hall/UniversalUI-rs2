@@ -10,21 +10,21 @@
 
 use crate::general::*;
 
-#![allow(non_snake_case)]
-#![allow(non_camel_case_types)]
-
+#[allow(non_camel_case_types)]
 //  uPoint, a simple location in 2D space
 pub struct uPoint {
     pub x: uFloat,
     pub y: uFloat,
 }
 
+#[allow(non_camel_case_types)]
 //  uSize, a 2D orthogonal size
 pub struct uSize {
     pub width: uFloat,
     pub height: uFloat,
 }
 
+#[allow(non_camel_case_types)]
 //  uRect, a 2D orthogonal rectangle
 pub struct uRect {
     pub x: uFloat,

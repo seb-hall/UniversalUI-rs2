@@ -9,11 +9,9 @@
 
 use std::ffi::c_float;
 
-#[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
-
 //  uID - used as an ID for various framework elements.
 pub type uID = usize;
-
+#[allow(non_camel_case_types)]
 //  uFloat - a standard floating point number.
 pub type uFloat = c_float;
