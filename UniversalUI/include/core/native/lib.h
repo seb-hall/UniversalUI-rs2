@@ -1,6 +1,6 @@
 extern "C" {
 
     //  initialise core
-    bool core_init();
+    bool native_init();
 
 }

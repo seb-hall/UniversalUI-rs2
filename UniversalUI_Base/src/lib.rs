@@ -8,5 +8,6 @@
 
 #![allow(non_snake_case)]
 
+pub mod general;
 pub mod debug;
 pub mod geometry;

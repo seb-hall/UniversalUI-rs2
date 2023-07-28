@@ -8,13 +8,10 @@
 //  geometry, particularly for windowing and basic
 //  graphics drawing.
 
+use crate::general::*;
+
 #![allow(non_snake_case)]
 #![allow(non_camel_case_types)]
-
-use std::ffi::c_float;
-
-//  define uFloat as c_float for *aesthetic* purposes
-type uFloat = c_float;
 
 //  uPoint, a simple location in 2D space
 pub struct uPoint {

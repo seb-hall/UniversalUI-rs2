@@ -11,4 +11,11 @@ struct uSize {
     float height;
 };
 
+struct uRect {
+    float x;
+    float y;
+    float width;
+    float height;
+};
+
 #endif
