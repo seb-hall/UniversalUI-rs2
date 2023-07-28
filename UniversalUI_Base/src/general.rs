@@ -7,9 +7,6 @@
 //  general.rs contains base types useful for modules within
 //  UniversalUI_Base and beyond.
 
-#![allow(non_snake_case)]
-#![allow(non_camel_case_types)]
-
 use std::ffi::c_float;
 
 //  uID - used as an ID for various framework elements.
