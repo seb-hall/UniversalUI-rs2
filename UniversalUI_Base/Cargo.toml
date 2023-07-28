@@ -1,9 +1,11 @@
 [package]
 name = "UniversalUI_Base"
 version = "0.1.0"
+license = "MIT"
 edition = "2021"
 authors = ["Seb Hall <sebhalldesigns@gmail.com>"]
 description = "Base types for the UniversalUI framework."
+documentation = "https://universalui.org/docs.html"
 
 [dependencies]
 colored = "2.0.0"
