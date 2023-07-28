@@ -13,8 +13,16 @@ use crate::UniversalUI_Base::geometry::*;
 
 use crate::libc::*;
 
-#[cfg_attr(windows, path = "win32/event.rs")]
-pub mod native_event;
+// Conditionally include the platform-specific modules
+#[cfg(target_os = "windows")]
+mod native_event {
+    include!("win32/event.rs");
+}
+
+#[cfg(target_os = "linux")]
+mod native_event {
+    include!("x11/event.rs");
+}
 
 pub type WindowEventCallback = extern "C" fn(window_id: uID, event_type: i32, user_data: *mut std::ffi::c_void);
 

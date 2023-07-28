@@ -14,8 +14,16 @@ use crate::UniversalUI_Base::geometry::*;
 use crate::libc::*;
 
 
-#[cfg_attr(windows, path = "win32/window.rs")]
-mod native_window;
+// Conditionally include the platform-specific modules
+#[cfg(target_os = "windows")]
+mod native_window {
+    include!("win32/window.rs");
+}
+
+#[cfg(target_os = "linux")]
+mod native_window {
+    include!("x11/window.rs");
+}
 
 #[no_mangle]
 pub extern "C" fn create_window(title: *const c_char, size: uSize) -> uID { 

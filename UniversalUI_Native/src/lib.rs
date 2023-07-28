@@ -12,8 +12,16 @@ extern crate libc;
 
 use UniversalUI_Base::debug::*;
 
-#[cfg_attr(windows, path = "win32/init.rs")]
-mod init;
+// Conditionally include the platform-specific modules
+#[cfg(target_os = "windows")]
+mod init {
+    include!("win32/init.rs");
+}
+
+#[cfg(target_os = "linux")]
+mod init {
+    include!("./x11/init.rs");
+}
 
 pub mod window;
 pub mod event;

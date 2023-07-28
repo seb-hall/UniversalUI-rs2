@@ -1,8 +1,8 @@
-echo "Building UniversalUICore...";
-cd ./UniversalUICore; cargo build; cd ..;
+echo "Building UniversalUI_Native...";
+cd ./UniversalUI_Native; cargo build; cd ..;
 echo "Done!";
 echo "Building test application";
-g++ test/main.cpp -L ./UniversalUICore/target/debug/ -I ./UniversalUI/include/ -o test/main -lUniversalUICore -Wl,-rpath ./UniversalUICore/target/debug/;
+g++ test/main.cpp -L ./UniversalUI_Native/target/debug/ -I ./UniversalUI/include/ -o test/main -lUniversalUI_Native -lX11 -lXext -Wl,-rpath ./UniversalUI_Native/target/debug/;
 echo "Done!";
 echo "Running test application";
 ./test/main

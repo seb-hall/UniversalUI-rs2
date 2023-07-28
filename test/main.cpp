@@ -21,13 +21,14 @@ int main() {
     }
 
     uID window1 = create_window("window 1", uSize { 800.0, 600.0 });
-    uID window2 = create_window("window 2", uSize { 800.0, 600.0 });
-    uID window3 = create_window("window 3", uSize { 800.0, 600.0 });
 
-    registerWindowEventCallback(handleWindowEvent, nullptr);
+    printf("got to here!\n");
+    while (true) {
+        printf("got to here!\n");
+        get_events();
+    }
 
-    set_window_visibility(window1, false);
-    
+
 
     return 0;
 }
