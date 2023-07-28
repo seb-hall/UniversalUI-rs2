@@ -1,16 +1,19 @@
 [package]
 name = "UniversalUI_Native"
 version = "0.1.0"
+license = "MIT"
 edition = "2021"
 authors = ["Seb Hall <sebhalldesigns@gmail.com>"]
 description = "Native platform functionality for the UniversalUI framework. Examples include windowing and events, file management and notifications."
+documentation = "https://universalui.org/docs.html"
 
 [lib]
 crate-type = ["cdylib"]
 
 [dependencies]
-libc = "0.2.147"
+UniversalUI_Base = "0.1.1"
 raw-window-handle = "0.5.2"
+libc = "0.2.147"
 
 [target.'cfg(target_os = "windows")'.dependencies]
 windows = { version = "0.48.0", features = [ 

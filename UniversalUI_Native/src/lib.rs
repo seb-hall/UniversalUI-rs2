@@ -1,14 +1,28 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
+//  UniversalUI_Native - lib.rs
+//  created by sebhall on 28/07/2023
+//  
+//  UniversalUI_Native contains native platform functionality
+//  for the UniversalUI framework, such as windowing, events
+//  and file management.
+//
+//  lib.rs declares the crate submodules and init function.
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+extern crate UniversalUI_Base;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+use UniversalUI_Base::debug::*;
+
+#[cfg_attr(windows, path = "win32/init.rs")]
+mod init;
+
+
+#[no_mangle]
+pub extern "C" fn native_init() -> bool { 
+
+    debug_info("Initialising UniversalUI_Native");
+
+    if !init::init() {
+        return false;
     }
+    
+    return true;
 }
