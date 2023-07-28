@@ -1,0 +1,9 @@
+[package]
+name = "UniversalUI_Base"
+version = "0.1.0"
+edition = "2021"
+authors = ["Seb Hall <sebhalldesigns@gmail.com>"]
+description = "Base types for the UniversalUI framework."
+
+[dependencies]
+colored = "2.0.0"

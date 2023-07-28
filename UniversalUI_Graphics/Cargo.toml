@@ -1,0 +1,14 @@
+[package]
+name = "UniversalUI_Graphics"
+version = "0.1.0"
+edition = "2021"
+authors = ["Seb Hall <sebhalldesigns@gmail.com>"]
+description = "Graphics rendering for the UniversalUI framework."
+
+
+[dependencies]
+wgpu = "0.17.0"
+pollster = "0.3.0"
+
+[lib]
+crate-type = ["cdylib"]

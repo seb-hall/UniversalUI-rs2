@@ -1,2 +1,11 @@
 UniversalUICore/target/
 UniversalUICore/Cargo.lock
+
+UniversalUI_Base/target/
+UniversalUI_Base/Cargo.lock
+
+UniversalUI_Native/target/
+UniversalUI_Native/Cargo.lock
+
+UniversalUI_Graphics/target/
+UniversalUI_Graphics/Cargo.lock
