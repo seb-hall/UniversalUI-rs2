@@ -19,6 +19,8 @@ use windows::Win32::Foundation::*;
 use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 use windows::Win32::UI::WindowsAndMessaging::*;
 
+
+
 pub fn get_events() {
 
     unsafe {
@@ -30,4 +32,11 @@ pub fn get_events() {
     }
     
 
+}
+
+pub unsafe extern "system" fn wndproc(window: HWND, message: u32, wparam: WPARAM, lparam: LPARAM) -> LRESULT { 
+
+    debug_info("an event occured!");
+    
+    return DefWindowProcW(window, message, wparam, lparam);
 }

@@ -6,6 +6,12 @@
 
 #include <stdio.h>
 
+// Function to handle window events, called from your C++ code
+void handleWindowEvent(uID windowId, int eventType) {
+    // Call the Rust function passing the window event information
+    printf("I got called back!\n");
+}
+
 int main() {
 
     printf("starting test...\n");
@@ -18,12 +24,10 @@ int main() {
     uID window2 = create_window("window 2", uSize { 800.0, 600.0 });
     uID window3 = create_window("window 3", uSize { 800.0, 600.0 });
 
-    set_window_visibility(window1, false);
-    //destroy_window(window1);
+    registerWindowEventCallback(handleWindowEvent, nullptr);
 
-    while (true) {
-        get_events();
-    }
+    set_window_visibility(window1, false);
+    
 
     return 0;
 }

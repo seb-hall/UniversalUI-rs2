@@ -14,11 +14,22 @@ use crate::UniversalUI_Base::geometry::*;
 use crate::libc::*;
 
 #[cfg_attr(windows, path = "win32/event.rs")]
-mod native_event;
+pub mod native_event;
+
+pub type WindowEventCallback = extern "C" fn(window_id: uID, event_type: i32, user_data: *mut std::ffi::c_void);
 
 #[no_mangle]
 pub extern "C" fn get_events() { 
 
     native_event::get_events();
+
+}
+
+#[no_mangle]
+pub extern "C" fn registerWindowEventCallback(callback: WindowEventCallback, user_data: *mut std::ffi::c_void) { 
+
+    println!("register callback");
+
+    (callback)(0, 0, user_data);
 
 }

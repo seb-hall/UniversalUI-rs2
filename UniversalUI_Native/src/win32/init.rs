@@ -10,6 +10,7 @@
 
 use crate::UniversalUI_Base::debug::*;
 
+
 use windows::{core::*, s};
 use windows::Win32::Foundation::*;
 use windows::Win32::System::LibraryLoader::GetModuleHandleW;
@@ -40,7 +41,7 @@ pub fn init() -> bool {
                 hInstance: instance,
                 lpszClassName: PCWSTR(window_class.as_ptr()),
                 style: CS_HREDRAW | CS_VREDRAW | CS_OWNDC,
-                lpfnWndProc: Some(wndproc),
+                lpfnWndProc: Some(crate::event::native_event::wndproc),
                 ..Default::default()
             };
 
@@ -95,9 +96,3 @@ pub fn init() -> bool {
 }
 
 
-unsafe extern "system" fn wndproc(window: HWND, message: u32, wparam: WPARAM, lparam: LPARAM) -> LRESULT { 
-
-    debug_info("an event occured!");
-    
-    return DefWindowProcW(window, message, wparam, lparam);
-}
