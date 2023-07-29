@@ -24,19 +24,21 @@ pub fn init() -> bool {
 
     debug_info("Starting Test: X11");
 
-    // Open the display
+    //  open the display
     let display = unsafe {
         xlib::XOpenDisplay(ptr::null())
     };
 
+
+    //  fail if display is null
     if display.is_null() {
         debug_critical("Test Failed: X11 - failed to get a display"); 
         return false;
     }
 
     unsafe {
-    // Store the X11 display in the global variable
-    DISPLAY = Some(display);
+        // Store the X11 display in the global variable
+        DISPLAY = Some(display);
     }
         
     debug_info("Test OK: X11");

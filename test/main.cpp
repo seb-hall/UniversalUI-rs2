@@ -21,6 +21,8 @@ int main() {
     }
 
     uID window1 = create_window("window 1", uSize { 800.0, 600.0 });
+    uID window2 = create_window("window 2", uSize { 800.0, 600.0 });
+    uID window3 = create_window("window 3", uSize { 800.0, 600.0 });
 
     while (true) {
        get_events();

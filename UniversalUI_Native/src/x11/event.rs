@@ -36,7 +36,7 @@ pub fn get_events() {
         let mut event = xlib::XEvent { pad: [0; 24] };
 
         xlib::XNextEvent(display, &mut event);
-        debug_info(&format!("Event: {}", event.type_).as_str());
+        debug_info(&format!("Event: {}, Window ID {}", event.type_, event.any.window).as_str());
     }
     
 

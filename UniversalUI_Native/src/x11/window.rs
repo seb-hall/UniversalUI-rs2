@@ -21,8 +21,8 @@ use std::ptr;
 
 pub fn create_window(title: *const c_char, size: uSize) -> uID { 
 
+    // Open the display
     let display = unsafe {
-        // Open the display
         match crate::init::DISPLAY {
             Some(disp) => disp,
             None => { 
@@ -61,7 +61,17 @@ pub fn create_window(title: *const c_char, size: uSize) -> uID {
             panic!();
         }
 
-        xlib::XSelectInput(display, window, KeyPressMask | ButtonPressMask | ExposureMask);
+        xlib::XSelectInput(display, window, 
+            KeyPressMask | 
+            ButtonPressMask |
+            ButtonReleaseMask | 
+            EnterWindowMask | 
+            LeaveWindowMask |
+            //PointerMotionMask | 
+            FocusChangeMask |
+            StructureNotifyMask |
+            ExposureMask 
+        );
 
     }
     
@@ -71,18 +81,19 @@ pub fn create_window(title: *const c_char, size: uSize) -> uID {
 }
 
 pub fn destroy_window(id: uID) {
+    
     // Open the display
     let display = unsafe {
-        xlib::XOpenDisplay(ptr::null())
+        match crate::init::DISPLAY {
+            Some(disp) => disp,
+            None => { 
+                debug_critical("Failed to unwrap X11 display");
+                panic!(); 
+            }
+        }
     };
-
-    if display.is_null() {
-        debug_critical("Failed to open X11 display");
-        panic!();
-    }
-
+    
     unsafe {
         xlib::XDestroyWindow(display, id.try_into().unwrap());
-        xlib::XCloseDisplay(display);
     }
 }
