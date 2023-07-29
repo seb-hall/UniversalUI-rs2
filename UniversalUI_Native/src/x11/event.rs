@@ -20,35 +20,25 @@ use std::ptr;
 
 pub fn get_events() {
 
-     // Open the display
-     let display = unsafe {
-        xlib::XOpenDisplay(ptr::null())
+    let display = unsafe {
+        // Open the display
+        match crate::init::DISPLAY {
+            Some(disp) => disp,
+            None => { 
+                debug_critical("Failed to unwrap X11 display");
+                panic!(); 
+            }
+        }
     };
 
-    if display.is_null() {
-        panic!("Failed to open X11 display.");
+    unsafe {
+
+        let mut event = xlib::XEvent { pad: [0; 24] };
+
+        xlib::XNextEvent(display, &mut event);
+        debug_info(&format!("Event: {}", event.type_).as_str());
     }
-
-    debug_info("got X11 display.");
-
-    // Create an event to listen for
-    let mut event = xlib::XEvent { pad: [0; 24] };
-
-
-        // Process X11 events
-        unsafe {
-            xlib::XNextEvent(display, &mut event);
-
-            debug_info("got next event");
-        }
-
-        // Break the loop on any KeyPress event
-        if event.get_type() == xlib::KeyPress {
-            debug_info("key press!");
-            return;
-        }
-
-        unsafe { xlib::XCloseDisplay(display); }
+    
 
 
 }

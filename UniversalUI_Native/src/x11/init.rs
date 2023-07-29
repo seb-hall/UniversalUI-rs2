@@ -15,7 +15,14 @@ extern crate x11;
 use x11::xlib;
 use std::ptr;
 
+
+pub static mut DISPLAY: Option<*mut xlib::Display> = None;
+
+
+
 pub fn init() -> bool { 
+
+    debug_info("Starting Test: X11");
 
     // Open the display
     let display = unsafe {
@@ -23,11 +30,16 @@ pub fn init() -> bool {
     };
 
     if display.is_null() {
-        debug_critical("failed to get X11 Display!");
+        debug_critical("Test Failed: X11 - failed to get a display"); 
         return false;
     }
 
-    unsafe { xlib::XCloseDisplay(display); }
+    unsafe {
+    // Store the X11 display in the global variable
+    DISPLAY = Some(display);
+    }
+        
+    debug_info("Test OK: X11");
 
     return true;
 }

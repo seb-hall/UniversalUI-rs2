@@ -14,7 +14,7 @@ void handleWindowEvent(uID windowId, int eventType) {
 
 int main() {
 
-    printf("starting test...\n");
+    printf("starting test application...\n");
 
     if (!native_init()) {
         return -1;
@@ -22,13 +22,9 @@ int main() {
 
     uID window1 = create_window("window 1", uSize { 800.0, 600.0 });
 
-    printf("got to here!\n");
     while (true) {
-        printf("got to here!\n");
-        get_events();
+       get_events();
     }
-
-
 
     return 0;
 }

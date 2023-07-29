@@ -16,18 +16,22 @@ extern crate x11;
 
 use crate::libc::*;
 use x11::xlib;
+use x11::xlib::*;
 use std::ptr;
 
 pub fn create_window(title: *const c_char, size: uSize) -> uID { 
 
-    // Open the display
     let display = unsafe {
-        xlib::XOpenDisplay(ptr::null())
+        // Open the display
+        match crate::init::DISPLAY {
+            Some(disp) => disp,
+            None => { 
+                debug_critical("Failed to unwrap X11 display");
+                panic!(); 
+            }
+        }
     };
-
-    if display.is_null() {
-        panic!("Failed to open X11 display.");
-    }
+    
 
     // Get the root window
     let root_window = unsafe {
@@ -53,23 +57,12 @@ pub fn create_window(title: *const c_char, size: uSize) -> uID {
     unsafe {
         let result = unsafe { xlib::XMapWindow(display, window) };
         if result == 0 {
-            panic!("Failed to ma`p the window.");
+            debug_critical("Failed to map X11 display");
+            panic!();
         }
-    }
 
-    debug_info("created an x11 window!");
-    
+        xlib::XSelectInput(display, window, KeyPressMask | ButtonPressMask | ExposureMask);
 
-
-    // Process X11 events
-    unsafe {
-            // Create an event to listen for
-        let mut event = xlib::XEvent { pad: [0; 24] };
-        xlib::XNextEvent(display, &mut event);
-
-        debug_info("got next event");
-    
-        //xlib::XCloseDisplay(display); 
     }
     
     return window.try_into().unwrap();
@@ -84,7 +77,8 @@ pub fn destroy_window(id: uID) {
     };
 
     if display.is_null() {
-        panic!("Failed to open X11 display.");
+        debug_critical("Failed to open X11 display");
+        panic!();
     }
 
     unsafe {
