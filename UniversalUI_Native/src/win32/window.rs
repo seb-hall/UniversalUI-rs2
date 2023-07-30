@@ -69,3 +69,9 @@ pub fn create_window(title: *const c_char, size: uSize) -> uID {
     
     
 }
+
+pub fn destroy_window(window: uID) {
+    unsafe {
+        DestroyWindow(HWND(window as isize));
+    }
+}

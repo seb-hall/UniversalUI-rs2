@@ -37,7 +37,7 @@ pub extern "C" fn create_window(title: *const c_char, size: uSize) -> uID {
 pub extern "C" fn destroy_window(id: uID) { 
 
     debug_info("Destroying Window");
-
+    native_window::destroy_window(id);
 }
 
 
