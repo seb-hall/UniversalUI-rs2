@@ -3,6 +3,7 @@
 #include "core/native/event.h"
 #include "core/base/general.h"
 #include "core/base/geometry.h"
+#include "core/graphics/lib.h"
 
 #include <stdio.h>
 
@@ -24,6 +25,8 @@ void handleWindowEvent(uID windowId, int eventType, float parameters[4]) {
 int main() {
 
     printf("starting test application...\n");
+
+    graphics_init();
 
     if (!native_init()) {
         return -1;
