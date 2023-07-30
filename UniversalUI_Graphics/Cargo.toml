@@ -1,12 +1,15 @@
 [package]
 name = "UniversalUI_Graphics"
 version = "0.1.0"
+license = "MIT"
 edition = "2021"
 authors = ["Seb Hall <sebhalldesigns@gmail.com>"]
-description = "Graphics rendering for the UniversalUI framework."
-
+description = "Grahics functionality for the UniversalUI framework."
+documentation = "https://universalui.org/docs.html"
 
 [dependencies]
+UniversalUI_Base = "0.1.2"
+libc = "0.2.147"
 wgpu = "0.17.0"
 pollster = "0.3.0"
 
