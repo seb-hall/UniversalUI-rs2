@@ -12,11 +12,13 @@ void handleWindowEvent(uID windowId, int eventType, float parameters[4]) {
     // Call the Rust function passing the window event information
     switch (eventType) {
         case WINDOW_RESIZED: 
-            printf("window resized: %.1f %.1f\n", parameters[0], parameters[1]);
+            printf("'%s' resized: %.1f %.1f\n", get_window_title(windowId), parameters[0], parameters[1]);
+            
             break;
         default: 
-            printf("window close button pressed\n");
-            destroy_window(windowId);
+            printf("'%s' close button pressed\n", get_window_title(windowId));
+            set_window_size(windowId, uSize { 250.0, 250.0});
+            //destroy_window(windowId);
             break;
 
     }

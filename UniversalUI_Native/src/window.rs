@@ -47,14 +47,14 @@ pub extern "C" fn get_window_visibility(id: uID) -> bool {
     debug_info("Getting window visibility");
     
 
-    return false;
+    return native_window::get_window_visibility(id);
 }
 
 #[no_mangle]
 pub extern "C" fn set_window_visibility(id: uID, visible: bool) { 
 
     debug_info("Setting window visibility");
-    
+    native_window::set_window_visibility(id, visible);
 }
 
 #[no_mangle]
@@ -62,14 +62,14 @@ pub extern "C" fn get_window_title(id: uID) -> *const c_char {
 
     debug_info("Getting window title");
     
-    return std::ptr::null();
+    return native_window::get_window_title(id);
 }
 
 #[no_mangle]
 pub extern "C" fn set_window_title(id: uID, title: *const c_char) { 
 
     debug_info("Setting window title");
-    
+    native_window::set_window_title(id, title);
 }
 
 #[no_mangle]
@@ -77,7 +77,7 @@ pub extern "C" fn get_window_size(id: uID) -> uSize {
 
     debug_info("Getting window size");
 
-    return uSize { width: 0.0, height: 0.0 };
+    return native_window::get_window_size(id);
     
 }
 
@@ -85,7 +85,7 @@ pub extern "C" fn get_window_size(id: uID) -> uSize {
 pub extern "C" fn set_window_size(id: uID, size: uSize) { 
 
     debug_info("Setting window size");
-    
+    native_window::set_window_size(id, size);
 }
 
 #[no_mangle]
